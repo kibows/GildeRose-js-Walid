@@ -1,4 +1,5 @@
-const ClassicGood = (sellIn, quality) => {
+// This module permit to maintain goods uptades by dividing each category in a function
+const ClassicGoodUpdate = (sellIn, quality) => {
   if (quality > 0) {
     return sellIn >= 0
       ? [sellIn - 1, quality - 1]
@@ -7,10 +8,10 @@ const ClassicGood = (sellIn, quality) => {
       : [sellIn - 1, quality - 2];
   } else return [sellIn - 1, quality];
 };
-const Sulfuras = (sellIn, quality) => {
+const SulfurasUpdate = (sellIn, quality) => {
   return [sellIn, quality];
 };
-const AgedBrie = (sellIn, quality) => {
+const AgedBrieUpdate = (sellIn, quality) => {
   if (quality < 50) {
     return sellIn >= 0
       ? [sellIn - 1, quality + 1]
@@ -19,7 +20,7 @@ const AgedBrie = (sellIn, quality) => {
       : [sellIn - 1, quality + 1];
   } else return [sellIn - 1, quality];
 };
-const Backstage = (sellIn, quality) => {
+const BackstageUpdate = (sellIn, quality) => {
   if (sellIn > 10) {
     return quality + 1 <= 50
       ? [sellIn - 1, quality + 1]
@@ -37,7 +38,7 @@ const Backstage = (sellIn, quality) => {
   }
   if (sellIn <= 0) return [sellIn - 1, quality - quality];
 };
-const Conjured = (sellIn, quality) => {
+const ConjuredUpdate = (sellIn, quality) => {
   if (quality > 0) {
     return sellIn >= 0
       ? [sellIn - 1, quality - 2]
@@ -46,13 +47,14 @@ const Conjured = (sellIn, quality) => {
       : [sellIn - 1, quality - 4];
   } else return [sellIn - 1, quality];
 };
+// goods permit to link a good category to a specific update function
 const goods = [
-  { good: 'sulfuras', callback: Sulfuras },
-  { good: 'aged brie', callback: AgedBrie },
-  { good: 'backstage passes', callback: Backstage },
-  { good: 'conjured', callback: Conjured },
+  { good: 'sulfuras', callback: SulfurasUpdate },
+  { good: 'aged brie', callback: AgedBrieUpdate },
+  { good: 'backstage passes', callback: BackstageUpdate },
+  { good: 'conjured', callback: ConjuredUpdate },
 ];
 module.exports = {
   goods,
-  ClassicGood,
+  ClassicGoodUpdate,
 };

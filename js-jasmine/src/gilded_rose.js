@@ -1,4 +1,4 @@
-const { goods, ClassicGood } = require('./goods-updates');
+const { goods, ClassicGoodUpdate } = require('./goods-updates');
 class Item {
   constructor(name, sellIn, quality) {
     this.name = name;
@@ -13,17 +13,17 @@ class Shop {
   }
   updateQuality() {
     this.items.map((item) => {
-      const goods_categorie_bool = [];
+      const goods_category_bool = []; // Check if goods belongs to a category.
       goods.some(({ good, callback }) => {
         const regEx = new RegExp(good, 'i');
         const bool = regEx.test(item.name);
-        goods_categorie_bool.push(bool);
+        goods_category_bool.push(bool);
         if (bool)
           [item.sellIn, item.quality] = callback(item.sellIn, item.quality);
         return bool;
       });
-      if (!goods_categorie_bool.includes(true))
-        [item.sellIn, item.quality] = ClassicGood(item.sellIn, item.quality);
+      if (!goods_category_bool.includes(true))
+        [item.sellIn, item.quality] = ClassicGoodUpdate(item.sellIn, item.quality);
     });
   }
 }
